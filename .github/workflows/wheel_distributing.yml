@@ -1,0 +1,40 @@
+name: Build and publish wheel distribution
+
+on:
+  workflow_call:
+    inputs:
+      ReleaseType:
+        type: string
+        default: "Test"
+        required: false
+        description: 'Official release or test'
+      UploadAsLatest:
+        type: string
+        default: "False"
+        required: false
+        description: 'Also publish the wheel distribution to internal pypi index as latest'
+      SourceFolderName:
+        type: string
+        required: true
+        description: 'The source folder name of the package to be built'
+      ConfigsFolderPath:
+        type: string
+        default: "scripts/distributing/configs"
+        required: false
+        description: 'Configs folder path'
+    outputs:
+      PackageVersion:
+        description: 'The version of the package'
+        value: ${{ jobs.sdk_release.outputs.PackageVersion }}
+
+jobs:
+  sdk_release:
+    runs-on: ubuntu-latest
+    name: Build and publish wheel distribution
+    outputs:
+      PackageVersion: ${{ steps.override_version.outputs.version }}
+
+    steps:
+      - name: Check input parameters
+        run: |
+          echo "Hello world!"
