@@ -1,0 +1,19 @@
+name: Deploy runtime
+
+on:
+  workflow_call:
+    inputs:
+      ToolsPackageVersion:
+        type: string
+        required: true
+        description: 'Version of the prompt-flow-tools package to deploy'
+
+jobs:
+  sdk_release:
+    runs-on: ubuntu-latest
+    name: Dtest
+
+    steps:
+      - name: Check input parameters
+        run: |
+          echo "Hello world!"
